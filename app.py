@@ -329,40 +329,43 @@ def add_question(exam_id):
 # ----------------------------------
 # IMPORT EXCEL REDIRECT
 # ----------------------------------
-@app.route("/import_excel_redirect")
-def import_excel_redirect():
-    exam_id = request.args.get("exam_id")
-    return redirect(f"/import_excel/{exam_id}")
+@app.route('/import_excel', methods=['POST'])
+def import_excel():
+    if 'file' not in request.files:
+        return "No file uploaded"
 
-
-# ----------------------------------
-# IMPORT FROM EXCEL PAGE
-# ----------------------------------
-@app.route("/import_excel/<int:exam_id>", methods=["GET", "POST"])
-def import_excel(exam_id):
-
-    if request.method == "GET":
-        return render_template("import_excel.html")
-
-    file = request.files["excel"]
+    file = request.files['file']
 
     if file.filename == "":
-        return "❌ No file selected"
+        return "No file selected"
 
-    filepath = "temp.xlsx"
-    file.save(filepath)
+    # Read Excel using pyexcel
+    records = p.get_records(file_type="xlsx", file_stream=file.stream)
 
-    try:
-        df = pd.read_excel(filepath)
-    except:
-        return "❌ Error reading Excel. Must be .xlsx"
+    # Each row becomes a dictionary
+    for row in records:
+        question_text = row.get("question")
+        option_a = row.get("option_a")
+        option_b = row.get("option_b")
+        option_c = row.get("option_c")
+        option_d = row.get("option_d")
+        correct_answer = row.get("correct")
+        marks = row.get("marks", 1)
 
-    required_cols = ["Question", "Option A", "Option B", "Option C",
-                     "Option D", "Correct", "Points"]
+        new_question = Question(
+            question_text=question_text,
+            option_a=option_a,
+            option_b=option_b,
+            option_c=option_c,
+            option_d=option_d,
+            correct_answer=correct_answer,
+            marks=marks
+        )
+        db.session.add(new_question)
 
-    for col in required_cols:
-        if col not in df.columns:
-            return f"❌ Missing required column: {col}"
+    db.session.commit()
+
+    return "Excel import successful"
 
     # Create questions
     for _, row in df.iterrows():
