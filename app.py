@@ -10,6 +10,7 @@ from datetime import datetime
 import random
 import pyexcel as p
 import os
+app.secret_key = "supersecret123"
 
 app = Flask(__name__)
 app.secret_key = "BIOLOGY-SYSTEM-SECRET-KEY"
