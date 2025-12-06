@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+
+        <div class="card shadow-lg border-0">
+            <div class="card-body p-5">
+
+                <h3 class="fw-bold text-success mb-4 text-center">Create New Exam</h3>
+
+                <form action="/create_exam" method="POST">
+
+                    <!-- Exam Info -->
+                    <h5 class="fw-bold text-secondary mb-3">Exam Information</h5>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Exam Title</label>
+                        <input type="text" name="title" class="form-control form-control-lg"
+                               placeholder="e.g., Biology Chapter 1 Test" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Grade Level</label>
+                        <select name="grade" class="form-select form-select-lg" required>
+                            <option disabled selected>Select grade</option>
+                            {% for g in grades %}
+                            <option value="{{ g.id }}">{{ g.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Settings -->
+                    <h5 class="fw-bold text-secondary mt-4 mb-3">Exam Settings</h5>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Duration (minutes)</label>
+                        <input type="number" name="duration" min="1"
+                               class="form-control form-control-lg" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Negative Marking</label>
+                        <input type="number" step="0.1" name="negative" value="0"
+                               class="form-control form-control-lg">
+                    </div>
+
+                    <!-- Versions -->
+                    <h5 class="fw-bold text-secondary mt-4 mb-3">Exam Versions</h5>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Number of Versions</label>
+                        <select name="versions" class="form-select form-select-lg" required>
+                            <option value="1">1 Version</option>
+                            <option value="2">2 Versions (A, B)</option>
+                            <option value="3">3 Versions (A, B, C)</option>
+                        </select>
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button class="btn btn-success btn-lg fw-bold">Create Exam</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2 class="fw-bold text-success mb-4 text-center">Manage Users</h2>
+
+<p class="text-center text-muted mb-4">
+    Promote, demote, delete, or reset user passwords.
+</p>
+
+<div class="card shadow-lg border-0">
+    <div class="card-body p-4">
+
+        <table class="table table-hover align-middle">
+            <thead class="table-success">
+                <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Change Role</th>
+                    <th>Reset Password</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.name }}</td>
+
+                    <td>
+                        {% if user.role == "SuperAdmin" %}
+                        <span class="badge bg-danger">SuperAdmin</span>
+                        {% elif user.role == "Admin" %}
+                        <span class="badge bg-primary">Admin</span>
+                        {% elif user.role == "Teacher" %}
+                        <span class="badge bg-success">Teacher</span>
+                        {% else %}
+                        <span class="badge bg-secondary">{{ user.role }}</span>
+                        {% endif %}
+                    </td>
+
+                    <!-- Change Role -->
+                    <td>
+                        <form action="/change_role/{{ user.id }}" method="POST" class="d-flex gap-2">
+                            <select name="role" class="form-select form-select-sm">
+                                <option value="Teacher" {% if user.role=='Teacher' %}selected{% endif %}>Teacher</option>
+                                <option value="Admin" {% if user.role=='Admin' %}selected{% endif %}>Admin</option>
+                                <option value="SuperAdmin" {% if user.role=='SuperAdmin' %}selected{% endif %}>SuperAdmin</option>
+                            </select>
+                            <button class="btn btn-success btn-sm fw-bold">✔</button>
+                        </form>
+                    </td>
+
+                    <!-- Reset Password -->
+                    <td>
+                        <form action="/reset_password/{{ user.id }}" method="POST">
+                            <button class="btn btn-warning btn-sm fw-bold text-dark">Reset</button>
+                        </form>
+                    </td>
+
+                    <!-- Delete User -->
+                    <td>
+                        <form action="/delete_user/{{ user.id }}" method="POST">
+                            <button class="btn btn-danger btn-sm fw-bold"
+                                    onclick="return confirm('Delete this user?')">
+                                🗑
+                            </button>
+                        </form>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% endblock %}

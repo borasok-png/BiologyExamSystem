@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-7">
+
+        <div class="card shadow-lg border-0">
+            <div class="card-body p-5">
+
+                <h3 class="fw-bold text-success mb-4 text-center">
+                    Import Questions from Excel
+                </h3>
+
+                <div class="alert alert-info">
+                    <strong>Excel Required Format:</strong><br>
+                    Question | Option A | Option B | Option C | Option D | Correct | Points | Topic
+                </div>
+
+                <form method="POST" enctype="multipart/form-data">
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Upload Excel File (.xlsx)</label>
+                        <input type="file" name="excel" class="form-control form-control-lg"
+                               accept=".xlsx" required>
+                    </div>
+
+                    <div class="d-grid">
+                        <button class="btn btn-success btn-lg fw-bold">Import Questions</button>
+                    </div>
+
+                </form>
+
+                <div class="text-center mt-4">
+                    <a href="/teacher_dashboard" class="btn btn-outline-secondary">
+                        ← Back to Dashboard
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+/* GLOBAL STYLING */
+body {
+    background: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* CARD HOVER EFFECTS */
+.dashboard-card,
+.exam-tile {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 12px;
+}
+
+.dashboard-card:hover,
+.exam-tile:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* BUTTONS */
+.btn-lg {
+    border-radius: 8px;
+}
+
+/* INPUTS */
+input.form-control,
+select.form-select,
+textarea.form-control {
+    border-radius: 8px;
+}
+
+/* NAV TABS */
+.nav-tabs .nav-link {
+    font-weight: bold;
+    color: #555;
+    border-radius: 6px 6px 0 0;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #28a745 !important;
+    color: white !important;
+}
+
+/* TABLE HOVER */
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* ALERTS */
+.alert {
+    border-radius: 8px;
+}
+
+/* TIMER TEXT */
+#timerText {
+    font-weight: bold;
+}

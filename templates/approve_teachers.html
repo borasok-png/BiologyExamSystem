@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2 class="fw-bold text-success mb-4 text-center">Approve Teacher Accounts</h2>
+
+<p class="text-center text-muted mb-4">
+    Review pending teacher registrations.
+</p>
+
+<div class="card shadow-lg border-0">
+    <div class="card-body p-4">
+
+        {% if pending|length == 0 %}
+            <div class="alert alert-info text-center fw-bold">No pending teacher accounts.</div>
+        {% else %}
+            <table class="table table-hover align-middle">
+                <thead class="table-warning">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Date Registered</th>
+                        <th>Approve</th>
+                        <th>Reject</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for user in pending %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.created_at }}</td>
+
+                        <td>
+                            <form action="/approve_teacher/{{ user.id }}" method="POST">
+                                <button class="btn btn-success btn-sm fw-bold">Approve</button>
+                            </form>
+                        </td>
+
+                        <td>
+                            <form action="/reject_teacher/{{ user.id }}" method="POST">
+                                <button class="btn btn-danger btn-sm fw-bold">Reject</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

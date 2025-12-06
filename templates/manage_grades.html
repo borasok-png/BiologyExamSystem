@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2 class="fw-bold text-success mb-4 text-center">Manage Grades</h2>
+
+<p class="text-center text-muted mb-4">
+    Add, edit, or delete grade levels.
+</p>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+
+        <!-- Add Grade -->
+        <div class="card shadow-lg border-0 mb-4">
+            <div class="card-body p-4">
+                <h5 class="fw-bold text-primary mb-3">Add New Grade</h5>
+
+                <form action="/add_grade" method="POST" class="d-flex gap-3">
+                    <input type="text" name="grade_name" class="form-control"
+                           placeholder="e.g., Grade 11" required>
+                    <button class="btn btn-primary fw-bold">Add</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Grade List -->
+        <div class="card shadow-lg border-0">
+            <div class="card-body p-4">
+                <h5 class="fw-bold text-secondary mb-3">Existing Grades</h5>
+
+                {% if grades|length == 0 %}
+                    <div class="alert alert-info text-center">No grades added yet.</div>
+                {% else %}
+                    <table class="table table-hover align-middle">
+                        <thead class="table-secondary">
+                            <tr>
+                                <th>#</th>
+                                <th>Grade</th>
+                                <th>Rename</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for grade in grades %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ grade.name }}</td>
+
+                                <td>
+                                    <form action="/rename_grade/{{ grade.id }}" method="POST" class="d-flex gap-2">
+                                        <input type="text" name="new_name" class="form-control form-control-sm"
+                                               placeholder="New name" required>
+                                        <button class="btn btn-warning btn-sm fw-bold text-dark">Rename</button>
+                                    </form>
+                                </td>
+
+                                <td>
+                                    <form action="/delete_grade/{{ grade.id }}" method="POST">
+                                        <button class="btn btn-danger btn-sm fw-bold"
+                                                onclick="return confirm('Delete this grade?')">
+                                            🗑
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

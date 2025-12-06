@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+
+        <div class="card shadow-lg border-0">
+            <div class="card-body p-5">
+
+                <h3 class="fw-bold text-primary text-center mb-4">Staff Login</h3>
+
+                <form action="/user_login" method="POST">
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input type="text" name="username" class="form-control form-control-lg" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-key"></i></span>
+                            <input type="password" name="password" class="form-control form-control-lg" required>
+                        </div>
+                    </div>
+
+                    <div class="d-grid">
+                        <button class="btn btn-primary btn-lg fw-bold">Login</button>
+                    </div>
+                </form>
+
+                <hr class="my-4">
+
+                <div class="text-center">
+                    <a href="/register_teacher" class="btn btn-outline-primary">Register as Teacher</a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

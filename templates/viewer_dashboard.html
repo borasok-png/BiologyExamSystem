@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2 class="fw-bold text-success mb-4 text-center">Viewer Dashboard</h2>
+
+<p class="text-center text-muted mb-4">
+    Read-only access to exam results and analytics.
+</p>
+
+<div class="row justify-content-center">
+
+    <!-- View Analytics -->
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h4 class="fw-bold text-info">📊 View Analytics</h4>
+                <p class="text-muted small">Analyze exam statistics</p>
+                <a href="/analytics" class="btn btn-info w-100 fw-bold text-white">
+                    Open Analytics
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Student Attempts -->
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h4 class="fw-bold text-primary">📂 Student Attempts</h4>
+                <p class="text-muted small">View all exam submissions</p>
+                <a href="/teacher_dashboard_attempts" class="btn btn-primary w-100 fw-bold">
+                    View Attempts
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2 class="fw-bold text-success mb-4 text-center">Teacher Dashboard</h2>
+
+<p class="text-center text-muted mb-4">
+    Manage exams, questions, and student performance.
+</p>
+
+<div class="row justify-content-center">
+
+    <!-- Create Exam -->
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h4 class="fw-bold text-success">📝 Create Exam</h4>
+                <p class="text-muted small">Start building a new exam</p>
+                <a href="/create_exam" class="btn btn-success w-100 fw-bold">Create Exam</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Questions -->
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h4 class="fw-bold text-primary">➕ Add Questions</h4>
+                <p class="text-muted small">Add or edit exam questions</p>
+                <a href="/select_exam" class="btn btn-primary w-100 fw-bold">Add Questions</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Excel -->
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card shadow-sm border-0">
+            <div class="card-body text-center">
+
+                <h4 class="fw-bold text-warning">📥 Import Excel</h4>
+                <p class="text-muted small">Bulk upload questions (.xlsx)</p>
+
+                <form action="/import_excel_redirect" method="GET">
+                    <select name="exam_id" class="form-select mb-3" required>
+                        <option disabled selected>Select exam</option>
+                        {% for exam in exams %}
+                        <option value="{{ exam.id }}">{{ exam.title }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <button class="btn btn-warning w-100 fw-bold text-dark">
+                        Import from Excel
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- View Analytics -->
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h4 class="fw-bold text-info">📊 Analytics</h4>
+                <p class="text-muted small">Exam statistics & performance</p>
+                <a href="/analytics" class="btn btn-info w-100 fw-bold text-white">
+                    View Analytics
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Attempts -->
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h4 class="fw-bold text-danger">📂 Student Attempts</h4>
+                <p class="text-muted small">Review exam submissions</p>
+                <a href="/teacher_dashboard_attempts" class="btn btn-danger w-100 fw-bold">
+                    View Attempts
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2 class="fw-bold text-success mb-4 text-center">Admin Dashboard</h2>
+
+<p class="text-center text-muted mb-4">
+    Manage system settings, users, and grade levels.
+</p>
+
+<div class="row justify-content-center">
+
+    <!-- Manage Users -->
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h4 class="fw-bold text-primary">👤 Manage Users</h4>
+                <p class="text-muted small">Promote, demote, or delete users</p>
+                <a href="/manage_users" class="btn btn-primary w-100 fw-bold">Manage Users</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Approve Teachers -->
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h4 class="fw-bold text-warning">✔ Approve Teachers</h4>
+                <p class="text-muted small">Approve or reject teacher requests</p>
+                <a href="/pending_teachers" class="btn btn-warning w-100 fw-bold text-dark">Approve</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Grades -->
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h4 class="fw-bold text-info">🎓 Manage Grades</h4>
+                <p class="text-muted small">Add or edit grade levels</p>
+                <a href="/manage_grades" class="btn btn-info w-100 fw-bold text-white">Manage Grades</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics -->
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h4 class="fw-bold text-success">📊 Analytics</h4>
+                <p class="text-muted small">View system performance</p>
+                <a href="/analytics" class="btn btn-success w-100 fw-bold">Open Analytics</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

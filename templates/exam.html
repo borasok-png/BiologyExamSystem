@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Timer -->
+<div class="alert alert-success text-center fw-bold fs-4">
+    Time Left: <span id="timerText">00:00</span>
+</div>
+
+<input type="hidden" id="duration" value="{{ exam.duration }}">
+<input type="hidden" id="violations" name="violations" form="examForm" value="0">
+
+<form action="/submit_exam" method="POST" id="examForm">
+
+    {% for q in questions %}
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+
+            <h5 class="fw-bold">Question {{ loop.index }}</h5>
+            <p class="fs-5">{{ q.question_text }}</p>
+
+            {% if q.type == "MCQ" %}
+                <div class="form-check mb-2">
+                    <input type="radio" name="q_{{ q.id }}" value="A" class="form-check-input">
+                    <label>{{ q.option_a }}</label>
+                </div>
+                <div class="form-check mb-2">
+                    <input type="radio" name="q_{{ q.id }}" value="B" class="form-check-input">
+                    <label>{{ q.option_b }}</label>
+                </div>
+                {% if q.option_c %}
+                <div class="form-check mb-2">
+                    <input type="radio" name="q_{{ q.id }}" value="C">
+                    <label>{{ q.option_c }}</label>
+                </div>
+                {% endif %}
+                {% if q.option_d %}
+                <div class="form-check mb-2">
+                    <input type="radio" name="q_{{ q.id }}" value="D">
+                    <label>{{ q.option_d }}</label>
+                </div>
+                {% endif %}
+
+            {% elif q.type == "TF" %}
+                <div class="form-check">
+                    <input type="radio" name="q_{{ q.id }}" value="True">
+                    <label>True</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" name="q_{{ q.id }}" value="False">
+                    <label>False</label>
+                </div>
+
+            {% elif q.type == "Short" %}
+                <textarea class="form-control" name="q_{{ q.id }}" rows="3"></textarea>
+
+            {% elif q.type == "Fill" %}
+                <input type="text" class="form-control" name="q_{{ q.id }}">
+
+            {% elif q.type == "Match" %}
+                {% for pair in q.match_pairs.split(",") %}
+                    {% set left = pair.split(":")[0] %}
+                    <label class="fw-bold">{{ left }}</label>
+                    <input type="text" class="form-control mb-2" 
+                           name="q_{{ q.id }}_{{ loop.index }}">
+                {% endfor %}
+            {% endif %}
+
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="d-grid">
+        <button class="btn btn-success btn-lg fw-bold">Submit Exam</button>
+    </div>
+</form>
+
+<script src="/static/js/timer.js"></script>
+<script src="/static/js/anti_cheat.js"></script>
+
+{% endblock %}

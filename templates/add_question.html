@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3 class="fw-bold text-success mb-4 text-center">Add Question</h3>
+
+<div class="card shadow-lg border-0">
+    <div class="card-body p-4">
+
+        <!-- Tabs -->
+        <ul class="nav nav-tabs mb-4" id="questionTabs" role="tablist">
+
+            <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#mcq" type="button">
+                    MCQ
+                </button>
+            </li>
+
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tf" type="button">
+                    True / False
+                </button>
+            </li>
+
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#short" type="button">
+                    Short Answer
+                </button>
+            </li>
+
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#fill" type="button">
+                    Fill in the Blank
+                </button>
+            </li>
+
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#match" type="button">
+                    Matching
+                </button>
+            </li>
+
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#image" type="button">
+                    Image Question
+                </button>
+            </li>
+
+        </ul>
+
+        <!-- Form -->
+        <form action="/add_question/{{ exam_id }}" method="POST" enctype="multipart/form-data">
+
+            <div class="tab-content">
+
+                <!-- MCQ TAB -->
+                <div class="tab-pane fade show active" id="mcq">
+
+                    <h5 class="text-success fw-bold mb-3">Multiple Choice Question</h5>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Question Text</label>
+                        <textarea class="form-control" name="question" rows="3" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Option A</label>
+                        <input class="form-control" name="optA" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Option B</label>
+                        <input class="form-control" name="optB" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Option C</label>
+                        <input class="form-control" name="optC">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Option D</label>
+                        <input class="form-control" name="optD">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Correct Answer</label>
+                        <select class="form-select" name="correct" required>
+                            <option disabled selected>Select answer</option>
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                            <option>D</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Points</label>
+                        <input type="number" class="form-control" name="points" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Topic</label>
+                        <input type="text" class="form-control" name="topic">
+                    </div>
+
+                    <hr>
+                </div>
+
+                <!-- TRUE / FALSE TAB -->
+                <div class="tab-pane fade" id="tf">
+
+                    <h5 class="text-primary fw-bold mb-3">True or False</h5>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Question Text</label>
+                        <textarea class="form-control" name="question"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Correct Answer</label>
+                        <select class="form-select" name="correct_tf">
+                            <option disabled selected>Select</option>
+                            <option>True</option>
+                            <option>False</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Points</label>
+                        <input type="number" class="form-control" name="points">
+                    </div>
+
+                    <hr>
+                </div>
+
+                <!-- SHORT ANSWER TAB -->
+                <div class="tab-pane fade" id="short">
+
+                    <h5 class="text-warning fw-bold mb-3">Short Answer</h5>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Question Text</label>
+                        <textarea class="form-control" name="question"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Correct Answer</label>
+                        <input class="form-control" name="correct">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Points</label>
+                        <input type="number" class="form-control" name="points">
+                    </div>
+
+                    <hr>
+                </div>
+
+                <!-- FILL IN THE BLANK TAB -->
+                <div class="tab-pane fade" id="fill">
+
+                    <h5 class="text-info fw-bold mb-3">Fill in the Blank</h5>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Sentence</label>
+                        <textarea class="form-control" name="question"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Correct Answer</label>
+                        <input class="form-control" name="correct">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Points</label>
+                        <input type="number" class="form-control" name="points">
+                    </div>
+
+                    <hr>
+                </div>
+
+                <!-- MATCHING TAB -->
+                <div class="tab-pane fade" id="match">
+
+                    <h5 class="text-danger fw-bold mb-3">Matching Question</h5>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Pairs (format: word1:match1, word2:match2, ...)</label>
+                        <textarea class="form-control" name="matchPairs" rows="3"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Points</label>
+                        <input type="number" class="form-control" name="points">
+                    </div>
+
+                    <hr>
+                </div>
+
+                <!-- IMAGE QUESTION TAB -->
+                <div class="tab-pane fade" id="image">
+
+                    <h5 class="text-secondary fw-bold mb-3">Image-Based Question</h5>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Upload Image</label>
+                        <input class="form-control" type="file" name="imageFile">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Question Text</label>
+                        <textarea class="form-control" name="question"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Correct Answer</label>
+                        <input class="form-control" name="correct">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold">Points</label>
+                        <input type="number" class="form-control" name="points">
+                    </div>
+
+                    <hr>
+                </div>
+
+            </div>
+
+            <!-- Hidden fields -->
+            <input type="hidden" name="type" id="questionType" value="MCQ">
+            <input type="hidden" name="version" value="all">
+
+            <!-- Submit -->
+            <div class="d-grid mt-3">
+                <button class="btn btn-success btn-lg fw-bold">Save Question</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
