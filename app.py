@@ -105,41 +105,37 @@ def home():
 # ----------------------------------
 # STAFF LOGIN PAGE
 # ----------------------------------
-@app.route("/user_login", methods=["GET", "POST"])
-def user_login():
-    if request.method == "GET":
-        return render_template("user_login.html")
+# -----------------------------
+# SUPERADMIN LOGIN
+# -----------------------------
 
-    username = request.form["username"]
-    password = request.form["password"]
+SUPERADMIN_CODE = "Hcsbio25"   # Your superadmin code
 
-    user = User.query.filter_by(username=username).first()
+@app.route('/superadmin_login', methods=['GET', 'POST'])
+def superadmin_login():
+    if request.method == 'POST':
+        code = request.form.get('code')
 
-    if not user:
-        return "❌ Username not found"
+        if code == SUPERADMIN_CODE:
+            session['role'] = 'superadmin'
+            return redirect('/superadmin_dashboard')
+        else:
+            return render_template('superadmin_login.html', error="Invalid Superadmin Code")
 
-    if not check_password_hash(user.password, password):
-        return "❌ Incorrect password"
+    return render_template('superadmin_login.html')
 
-    if user.role == "Teacher" and not user.approved:
-        return "❌ Your account is pending approval."
 
-    # Save login session
-    session["user_id"] = user.id
-    session["role"] = user.role
-    session["name"] = user.name
 
-    # Role-based redirect
-    if user.role == "Teacher":
-        return redirect("/teacher_dashboard")
-    elif user.role == "Admin":
-        return redirect("/admin_dashboard")
-    elif user.role == "SuperAdmin":
-        return redirect("/superadmin_dashboard")
-    elif user.role == "Viewer":
-        return redirect("/viewer_dashboard")
+# -----------------------------
+# SUPERADMIN DASHBOARD (Protected)
+# -----------------------------
+@app.route('/superadmin_dashboard')
+def superadmin_dashboard():
+    if session.get('role') != 'superadmin':
+        return redirect('/superadmin_login')
 
-    return "Unknown role!"
+    return render_template('superadmin_dashboard.html')
+
 
 
 # ----------------------------------
