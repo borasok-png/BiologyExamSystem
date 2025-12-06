@@ -562,13 +562,6 @@ def admin_dashboard():
     return render_template("admin_dashboard.html")
 
 
-@app.route("/superadmin_dashboard")
-def superadmin_dashboard():
-    if session.get("role") != "SuperAdmin":
-        return redirect("/")
-    return render_template("superadmin_dashboard.html")
-
-
 # ----------------------------------
 # APPROVE TEACHERS
 # ----------------------------------
