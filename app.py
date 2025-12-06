@@ -707,10 +707,9 @@ def delete_user(user_id):
 # ======================================================
 # DATABASE INITIALIZATION
 # ======================================================
-@app.before_first_request
-def initialize_database():
-
+with app.app_context():
     db.create_all()
+
 
     # Default grades
     if Grade.query.count() == 0:
