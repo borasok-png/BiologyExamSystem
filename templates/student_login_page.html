@@ -1,67 +1,28 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block content %}
 
 <div class="row justify-content-center mt-5">
-    <div class="col-md-7">
+    <div class="col-md-6">
+        <div class="card shadow-lg">
+            <div class="card-body p-4">
 
-        <div class="card shadow-lg border-0">
-            <div class="card-body p-5">
+                <h3 class="text-danger fw-bold text-center mb-4">Superadmin Login</h3>
 
-                <h2 class="fw-bold text-center text-success mb-4">
-                    Student Login
-                </h2>
+                {% if error %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
 
-                <p class="text-center text-muted mb-4">
-                    Enter your information to begin your Biology exam.
-                </p>
+                <form method="POST">
+                    <label class="fw-bold">Superadmin Code</label>
+                    <input type="password" name="code" class="form-control form-control-lg mb-3" required>
 
-                <form action="/student_login" method="POST">
-
-                    <!-- Student Name -->
-                    <div class="mb-4">
-                        <label class="form-label fw-bold">Full Name</label>
-                        <input type="text" name="student_name"
-                               class="form-control form-control-lg"
-                               placeholder="Enter your full name"
-                               required>
-                    </div>
-
-                    <!-- Grade Level -->
-                    <div class="mb-4">
-                        <label class="form-label fw-bold">Grade Level</label>
-                        <select name="grade" class="form-select form-select-lg" required>
-                            <option value="" disabled selected>Select your grade</option>
-                            <option value="1">Grade 7</option>
-                            <option value="2">Grade 8</option>
-                            <option value="3">Grade 9</option>
-                            <option value="4">Grade 10</option>
-                            <option value="5">Grade 11</option>
-                            <option value="6">Grade 12</option>
-                        </select>
-                    </div>
-
-                    <!-- Class Code -->
-                    <div class="mb-4">
-                        <label class="form-label fw-bold">Class Code</label>
-                        <input type="text" name="class_code"
-                               class="form-control form-control-lg"
-                               placeholder="Enter class code (e.g., 2025)"
-                               required>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="d-grid mt-4">
-                        <button type="submit"
-                                class="btn btn-success btn-lg fw-bold">
-                            Start Exam
-                        </button>
-                    </div>
-
+                    <button class="btn btn-danger w-100 btn-lg">
+                        Login
+                    </button>
                 </form>
 
             </div>
         </div>
-
     </div>
 </div>
 
