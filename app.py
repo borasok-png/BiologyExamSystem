@@ -117,12 +117,13 @@ def superadmin_login():
         code = request.form.get('code')
 
         if code == SUPERADMIN_CODE:
-            session['role'] = 'superadmin'
+            session['role'] = 'SuperAdmin'   # FIXED
             return redirect('/superadmin_dashboard')
         else:
             return render_template('superadmin_login.html', error="Invalid Superadmin Code")
 
     return render_template('superadmin_login.html')
+
 
 
 
